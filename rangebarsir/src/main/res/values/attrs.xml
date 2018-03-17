@@ -2,6 +2,8 @@
 <resources>
     <declare-styleable name="RangeBar">
 
-
+        <attr name="lineWidth" format="dimension"/>
+        <attr name="sliderSzie" format="dimension"/>
+        <attr name="sliderColor" format="reference|color"/>
     </declare-styleable>
 </resources>

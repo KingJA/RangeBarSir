@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 26
@@ -23,4 +24,13 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
+}
+
+publish {
+    artifactId = 'rangebarsir'
+    userOrg = 'kingja'
+    groupId = 'com.kingja.rangebarsir'
+    publishVersion = '1.0.0'
+    desc = 'A smart RangeBar for Android'
+    website = 'https://github.com/KingJA/RangeBarSir'
 }
