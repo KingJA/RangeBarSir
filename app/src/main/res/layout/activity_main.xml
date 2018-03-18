@@ -16,9 +16,20 @@
 
     <com.kingja.rangebarsir.RangeBar
         android:background="#bebebe"
-        app:lineWidth="6dp"
-        app:sliderColor="#453ddc"
+        app:normalLineWidth="1dp"
+        app:normalLineColor="#959595"
+        app:selectedLineWidth="1dp"
+        app:selectedLineColor="#FF4081"
+        app:sliderColor="#FF4081"
+        app:sliderSzie="12dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="wrap_content"/>
+
+
+    <SeekBar
+        android:layout_marginTop="12dp"
+        android:background="#bebebe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
