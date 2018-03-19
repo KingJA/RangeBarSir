@@ -11,5 +11,10 @@
         <attr name="sliderSzie" format="dimension"/>
         <attr name="sliderColor" format="reference|color"/>
         <attr name="sliderImg" format="reference"/>
+
+        <attr name="minNum" format="integer"/>
+        <attr name="maxNum" format="integer"/>
+        <attr name="offsetNum" format="integer"/>
+
     </declare-styleable>
 </resources>

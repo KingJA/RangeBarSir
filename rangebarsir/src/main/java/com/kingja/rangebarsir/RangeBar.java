@@ -42,6 +42,13 @@ public class RangeBar extends View {
     private float selectedLineWidth;
     private int selectedLineColor;
     private Paint selectedLinePaint;
+    private int minNum;
+    private int maxNum;
+    private OnRangeChangedListener onRangeChangedListener;
+    private int offsetNum;
+    private float offsetWidth;
+    private int perNums;
+    private int minIndex;
 
     public RangeBar(Context context) {
         this(context, null);
@@ -77,6 +84,12 @@ public class RangeBar extends View {
 
         selectedLineWidth = a.getDimension(R.styleable.RangeBar_selectedLineWidth, 4);
         selectedLineColor = a.getColor(R.styleable.RangeBar_selectedLineColor, 0x453ddc);
+
+        minNum = a.getColor(R.styleable.RangeBar_minNum, 0);
+        maxNum = a.getColor(R.styleable.RangeBar_maxNum, 100);
+        offsetNum = a.getColor(R.styleable.RangeBar_offsetNum, 10);
+
+        perNums = (maxNum-minNum)/offsetNum;
 
         sliderSzie = a.getDimension(R.styleable.RangeBar_sliderSzie, dp2px(20));
         sliderColor = a.getColor(R.styleable.RangeBar_sliderColor, 0x453ddc);
@@ -120,14 +133,15 @@ public class RangeBar extends View {
         width = getMeasuredWidth();
         rangeMinX = sliderSzie;
         rangeMaxX = width - sliderSzie;
+        offsetWidth = (rangeMaxX-rangeMinX)/ offsetNum;
         initSlider();
     }
 
     private void initSlider() {
         sliderBitmap = BitmapFactory.decodeResource(getResources(), sliderImg);
 
-        minSlider = new Slider(sliderSzie*1.5f, height / 2, sliderSzie);
-        maxSlider = new Slider(width - sliderSzie*1.5f, height / 2, sliderSzie);
+        minSlider = new Slider(sliderSzie * 1.5f, height / 2, sliderSzie);
+        maxSlider = new Slider(width - sliderSzie * 1.5f, height / 2, sliderSzie);
     }
 
     @Override
@@ -172,17 +186,25 @@ public class RangeBar extends View {
             case MotionEvent.ACTION_MOVE:
                 float offsetX = event.getX() - lastX;
                 if (moveableSlider == MoveableSlider.MIN_SILDER && (minSlider.getNextRight(offsetX) < maxSlider
-                        .getLeft())&& (minSlider.getNextLeft(offsetX) >sliderSzie/2)) {
+                        .getLeft()) && (minSlider.getNextLeft(offsetX) > sliderSzie / 2)) {
                     minSlider.move(offsetX);
                     Log.e(TAG, "左滑块移动");
+                   int currentMinIndex  = (int) ((minSlider.getCx() - rangeMinX) / offsetWidth);
+//                    Log.e(TAG, "minIndex="+ minIndex);
+                    if (onRangeChangedListener != null&&currentMinIndex!=minIndex) {
+                        minIndex=currentMinIndex;
+                        onRangeChangedListener.onRnageChanged((int) (minNum+perNums* minIndex),0);
+                    }
                 } else if (moveableSlider == MoveableSlider.MAX_SILDER && (maxSlider.getNextLeft(offsetX) > minSlider
-                        .getRight())&& (maxSlider.getNextRight(offsetX) <width-sliderSzie/2)) {
+                        .getRight()) && (maxSlider.getNextRight(offsetX) < width - sliderSzie / 2)) {
                     maxSlider.move(offsetX);
                     Log.e(TAG, "右滑块移动");
                 }
                 lastX = event.getX();
                 break;
             case MotionEvent.ACTION_UP:
+                break;
+            default:
                 break;
         }
 
@@ -192,5 +214,13 @@ public class RangeBar extends View {
 
     enum MoveableSlider {
         MIN_SILDER, MAX_SILDER, DISABLE_MOVE;
+    }
+
+    public  interface OnRangeChangedListener {
+        void onRnageChanged(int minNum, int maxNum);
+    }
+
+    public void setOnRangeChangedListener(OnRangeChangedListener onRangeChangedListener) {
+        this.onRangeChangedListener = onRangeChangedListener;
     }
 }

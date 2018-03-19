@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="sample.kingja.rangebarsir.MainActivity"
     android:orientation="vertical"
-    android:padding="12dp">
+    android:padding="12dp"
+    tools:context="sample.kingja.rangebarsir.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,21 +15,25 @@
         android:text="Hello World!"/>
 
     <com.kingja.rangebarsir.RangeBar
-        android:background="#bebebe"
-        app:normalLineWidth="1dp"
-        app:normalLineColor="#959595"
-        app:selectedLineWidth="1dp"
-        app:selectedLineColor="#FF4081"
-        app:sliderColor="#FF4081"
-        app:sliderSzie="12dp"
+        android:id="@+id/rangebar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="#bebebe"
+        app:maxNum="120"
+        app:minNum="20"
+        app:normalLineColor="#959595"
+        app:normalLineWidth="2dp"
+        app:offsetNum="10"
+        app:selectedLineColor="#FF4081"
+        app:selectedLineWidth="2dp"
+        app:sliderColor="#FF4081"
+        app:sliderSzie="24dp"/>
 
 
     <SeekBar
-        android:layout_marginTop="12dp"
-        android:background="#bebebe"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="#bebebe"/>
 
 </LinearLayout>
